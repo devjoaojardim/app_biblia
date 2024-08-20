@@ -128,203 +128,206 @@ class _HomeState extends State<Home> {
       ),
       body: versos != null
           ? Column(
-              children: [
-                Expanded(
-                    child: Column(
-                  children: [
-                    SizedBox(
-                      height: 16,
+        children: [
+          Expanded(
+            //  height: MediaQuery.of(context).size.height - kToolbarHeight,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width - 40,
+                    height: 50,
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                      // Define o raio das bordas
+                      border: Border.all(color: Colors.black, width: 1),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 40,
-                      height: 50,
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),
-                        // Define o raio das bordas
-                        border: Border.all(color: Colors.black, width: 1),
+                    child: GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Search()));
+                      },
+                      child: Row(
+                        children: [
+                          Icon(Icons.search_rounded),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            'Pesquisar...',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: MyColors.black,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
                       ),
-                      child: GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Search()));
-                        },
-                        child: Row(
-                          children: [
-                            Icon(Icons.search_rounded),
-                            SizedBox(
-                              width: 8,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    height: 40,
+                    margin: EdgeInsets.only(left: 8),
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: category.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryBookList(idCategoria: category[index].id!)));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(8),
+                              margin: EdgeInsets.only(right: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(25),
+                                // Define o raio das bordas
+                                border:
+                                Border.all(color: Colors.black, width: 1),
+                              ),
+                              child: Text(
+                                category[index].name!,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: MyColors.black,
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
-                            Text(
-                              'Pesquisar...',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: MyColors.black,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w500),
+                          );
+                        }),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+                    child: Card(
+                      color: Colors.white,
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Versiculo do momento',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(height: 16,),
+                                  Text(
+                                    versos!.text ?? '',
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Text(
+                                    '${versos!.book ?? ''} ${versos!.chapter ?? ''} - ${versos!.verse ?? ''}',
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.share),
+                                  onPressed: () {
+                                    // Implementar a funcionalidade de compartilhar aqui
+                                    final String verseText = versos!.text ?? '';
+                                    final String bookName = versos!.book ?? '';
+                                    final int chapter = versos!.chapter ?? 0;
+                                    final int verseNumber = versos!.verse ?? 0;
+                                    final String shareText =
+                                        '"$verseText"\n$bookName $chapter:$verseNumber';
+                                    // Chame a função de compartilhamento
+                                    _shareVerse(shareText);
+                                  },
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Container(
-                      height: 40,
-                      margin: EdgeInsets.only(left: 8),
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: category.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryBookList(idCategoria: category[index].id!)));
-                              },
-                              child: Container(
-                                padding: EdgeInsets.all(8),
-                                margin: EdgeInsets.only(right: 8),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(25),
-                                  // Define o raio das bordas
-                                  border:
-                                      Border.all(color: Colors.black, width: 1),
-                                ),
-                                child: Text(
-                                  category[index].name!,
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: MyColors.black,
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            );
-                          }),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-                      child: Card(
-                        color: Colors.white,
-                        elevation: 3,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Versiculo do momento',
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    SizedBox(height: 16,),
-                                    Text(
-                                      versos!.text ?? '',
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    SizedBox(height: 8.0),
-                                    Text(
-                                      '${versos!.book ?? ''} ${versos!.chapter ?? ''} - ${versos!.verse ?? ''}',
-                                      style: TextStyle(
-                                        fontSize: 12.0,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IconButton(
-                                    icon: Icon(Icons.share),
-                                    onPressed: () {
-                                      // Implementar a funcionalidade de compartilhar aqui
-                                      final String verseText = versos!.text ?? '';
-                                      final String bookName = versos!.book ?? '';
-                                      final int chapter = versos!.chapter ?? 0;
-                                      final int verseNumber = versos!.verse ?? 0;
-                                      final String shareText =
-                                          '"$verseText"\n$bookName $chapter:$verseNumber';
-                                      // Chame a função de compartilhamento
-                                      _shareVerse(shareText);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 8),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Livros',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Expanded(
+                    child: GridView.builder(
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        // Número de colunas
+                        crossAxisSpacing: 8.0,
+                        // Espaçamento horizontal entre os itens
+                        mainAxisSpacing: 7.0,
+                        // Espaçamento vertical entre os itens
+                        childAspectRatio:
+                        4 /
+                            4.5, // Proporção de aspecto de cada item (largura/altura)
                       ),
+                      itemCount: booksCategory.length,
+                      itemBuilder: (context, index) {
+                        final book = booksCategory[index];
+                        return GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Viewchapetulos(livro: book.id! - 1, nameLivro: book.name!,)));
+                          },
+                          child: BooksWidget(
+                              book.name!, book.abbrev!, Colors.red, index),
+                        );
+                      },
                     ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 8),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Livros',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Expanded(
-                      child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          // Número de colunas
-                          crossAxisSpacing: 8.0,
-                          // Espaçamento horizontal entre os itens
-                          mainAxisSpacing: 7.0,
-                          // Espaçamento vertical entre os itens
-                          childAspectRatio:
-                          4 /
-                              4.5, // Proporção de aspecto de cada item (largura/altura)
-                        ),
-                        itemCount: booksCategory.length,
-                        itemBuilder: (context, index) {
-                          final book = booksCategory[index];
-                          return GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => Viewchapetulos(livro: book.id! - 1, nameLivro: book.name!,)));
-                            },
-                            child: BooksWidget(
-                                book.name!, book.abbrev!, Colors.red, index),
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                ))
-              ],
-            )
+                  ),
+                  SizedBox(height: 16,)
+                ],
+              ))
+        ],
+      )
           : CircularProgressIndicator(
               color: Colors.white,
             ),
@@ -393,13 +396,13 @@ class _HomeState extends State<Home> {
       case 'ag': // Ageu
       case 'zc': // Zacarias
       case 'ml': // Malaquias
-        return Colors.yellow.shade600;
+        return Colors.orange.shade300;
 
       case 'mt': // Mateus
       case 'mc': // Marcos
       case 'lc': // Lucas
       case 'jo': // Malaquias
-        return Colors.yellow.shade800;
+        return Colors.yellow.shade700;
 
     // Epístolas
       case 'rm': // Romanos

@@ -122,7 +122,7 @@ class _CategoryBookListState extends State<CategoryBookList> {
 
   Color getBookColor(String abbrev) {
     switch (abbrev.toLowerCase()) {
-      // Pentateuco
+    // Pentateuco
       case 'gn': // Gênesis
       case 'ex': // Êxodo
       case 'lv': // Levítico
@@ -130,7 +130,7 @@ class _CategoryBookListState extends State<CategoryBookList> {
       case 'dt': // Deuteronômio
         return Colors.pink.shade400;
 
-      // Livros Históricos
+    // Livros Históricos
       case 'js': // Josué
       case 'jz': // Juízes
       case 'rt': // Rute
@@ -146,7 +146,7 @@ class _CategoryBookListState extends State<CategoryBookList> {
       case 'at': // Atos
         return Colors.red.shade400;
 
-      // Livros Poéticos
+    // Livros Poéticos
       case 'job': // Jó
       case 'sl': // Salmos
       case 'pv': // Provérbios
@@ -154,7 +154,7 @@ class _CategoryBookListState extends State<CategoryBookList> {
       case 'ct': // Cânticos
         return Colors.lightGreen.shade400;
 
-      // Profetas Maiores
+    // Profetas Maiores
       case 'is': // Isaías
       case 'jr': // Jeremias
       case 'lm': // Lamentações
@@ -162,7 +162,7 @@ class _CategoryBookListState extends State<CategoryBookList> {
       case 'dn': // Daniel
         return Colors.green.shade400;
 
-      // Profetas Menores
+    // Profetas Menores
       case 'os': // Oséias
       case 'jl': // Joel
       case 'am': // Amós
@@ -175,15 +175,15 @@ class _CategoryBookListState extends State<CategoryBookList> {
       case 'ag': // Ageu
       case 'zc': // Zacarias
       case 'ml': // Malaquias
-        return Colors.yellow.shade600;
+        return Colors.orange.shade300;
 
       case 'mt': // Mateus
       case 'mc': // Marcos
       case 'lc': // Lucas
       case 'jo': // Malaquias
-        return Colors.yellow.shade800;
+        return Colors.yellow.shade700;
 
-      // Epístolas
+    // Epístolas
       case 'rm': // Romanos
       case '1co': // 1 Coríntios
       case '2co': // 2 Coríntios
@@ -208,11 +208,11 @@ class _CategoryBookListState extends State<CategoryBookList> {
       case 'jd': // Judas
         return Colors.blue.shade800;
 
-      // Revelação
+    // Revelação
       case 'ap': // Apocalipse
         return Colors.grey;
 
-      // Cor padrão
+    // Cor padrão
       default:
         return Colors.grey;
     }
